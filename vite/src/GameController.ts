@@ -1,18 +1,22 @@
-import {Level} from "./SceneManagment/Level.ts"
 import {ClickableScene} from "./SceneManagment/Scenes/ClickableScene.ts";
+import {PointLight} from "three";
 
 
 export class GameController {
-    fixedTimeStep = 1 / 60;
 
-    private clickableScene: ClickableScene;
+    private _fixedTimeStep = 1 / 60;
+    private _clickableScene: ClickableScene;
 
     constructor() {
-        this.clickableScene = new ClickableScene();
+        this._clickableScene = new ClickableScene();
+    }
+
+    public init(){
+        this._clickableScene.init();
     }
 
     public fixedUpdate() {
-        setTimeout(this.fixedUpdate, this.fixedTimeStep * 1000)
-        this.clickableScene.update();
+        this._clickableScene.update();
+        requestAnimationFrame(this.fixedUpdate.bind(this));
     }
 }
