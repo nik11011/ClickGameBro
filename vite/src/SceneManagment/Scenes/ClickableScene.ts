@@ -16,6 +16,9 @@ export class ClickableScene extends Level{
     }
 
     public initObjects(){
+        this.camera.position.set(-10, 5, -10);
+        this.camera.lookAt(3, 3, 3);
+
         this._box = new Cube("#ffffff");
         this._box.mesh.position.set(0, -2, -3);
         this._box.mesh.scale.set(10,1,10);
