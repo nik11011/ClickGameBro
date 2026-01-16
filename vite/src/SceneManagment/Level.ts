@@ -26,8 +26,8 @@ export class Level{
         this._scene.add(this._camera);
 
 
-        this._light = new PointLight('#ffffff', 200000);
-        this._light.position.set(0, 50, 0);
+        this._light = new PointLight('#ffffff', 1000);
+        this._light.position.set(0, 5, 0);
         this._scene.add(this._light);
 
         this.event = new EventEmitter();
