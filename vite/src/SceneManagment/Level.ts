@@ -7,8 +7,8 @@ export class Level{
     protected _scene: Scene;
     protected renderer: WebGLRenderer;
 
-    private _camera: PerspectiveCamera;
-    private _light: PointLight;
+    protected _camera: PerspectiveCamera;
+    protected _light: PointLight;
     private _canvas: HTMLCanvasElement;
 
 
@@ -23,11 +23,12 @@ export class Level{
         this.renderer.setClearColor('#7a0000', 1);
 
         this._camera = new PerspectiveCamera(75, window.innerWidth / window.innerHeight);
+
         this._scene.add(this._camera);
 
 
         this._light = new PointLight('#ffffff', 1000);
-        this._light.position.set(0, 5, 0);
+        this._light.position.set(0, 0, 0);
         this._scene.add(this._light);
 
         this.event = new EventEmitter();

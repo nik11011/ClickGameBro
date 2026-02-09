@@ -3,7 +3,6 @@ import {PointLight} from "three";
 
 
 export class GameController {
-
     private _fixedTimeStep = 1 / 60;
     private _clickableScene: ClickableScene;
 
@@ -11,7 +10,7 @@ export class GameController {
         this._clickableScene = new ClickableScene();
     }
 
-    public init(){
+    public async init(){
         this._clickableScene.init();
     }
 

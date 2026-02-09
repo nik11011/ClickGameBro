@@ -15,9 +15,11 @@
     "vite": "^7.2.4"
   },
   "dependencies": {
+    "@tweenjs/tween.js": "^25.0.0",
     "@types/three": "^0.182.0",
     "eventemitter3": "^5.0.1",
     "three": "^0.182.0",
-    "tween": "^0.9.0"
+    "tween": "^0.9.0",
+    "tweenjs": "^1.0.2"
   }
 }
