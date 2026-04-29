@@ -25,7 +25,7 @@ export class Player {
 
         this._mesh = new Mesh(this._geometry, this._material);
 
-        this._center = new Vector3(0,0,-5);
+        this._center = new Vector3(0,0,0);
         this._radius = 3;
         this._angle = 0;
         this._angularSpeed = 2.0;
