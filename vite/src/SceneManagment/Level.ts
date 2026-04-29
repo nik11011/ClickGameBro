@@ -1,5 +1,5 @@
 import EventEmitter from "eventemitter3";
-import {Scene, PerspectiveCamera, WebGLRenderer,  PointLight} from "three";
+import {Scene, PerspectiveCamera, WebGLRenderer, PointLight, Clock} from "three";
 
 export class Level{
     public event: EventEmitter;
@@ -10,6 +10,8 @@ export class Level{
     protected _camera: PerspectiveCamera;
     protected _light: PointLight;
     private _canvas: HTMLCanvasElement;
+
+    protected _clock: Clock;
 
 
     constructor(){
@@ -38,6 +40,8 @@ export class Level{
             this._resize();
             this.event.emit('resize', {width: window.innerWidth, height: window.innerHeight});
         });
+
+        this._clock = new Clock();
     }
 
     public get camera(){
