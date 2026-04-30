@@ -1,23 +1,30 @@
-import {BoxGeometry, Mesh, MeshPhysicalMaterial} from "three";
+import {BoxGeometry, Mesh, MeshNormalMaterial, MeshPhysicalMaterial} from "three";
+import {Tween} from "@tweenjs/tween.js";
 
 export class Enemy{
     private _geometry: BoxGeometry;
     private _material: MeshPhysicalMaterial;
 
     private _mesh: Mesh;
+    private _tween: Tween;
 
-    constructor(color) {
+    private _tweenStarted: boolean;
+
+    constructor() {
         this._geometry = new BoxGeometry(1,1,1);
-        this._material = new MeshPhysicalMaterial({
-            color: color,
-            roughness: 1.0,
-            metalness: 0.0,
-            clearcoat: 0.0,
-            sheen: 0.0,
-            specularIntensity: 0.0,
-            envMapIntensity: 0.0});
+        this._material = new MeshNormalMaterial({wireframe: true});
 
         this._mesh = new Mesh(this._geometry, this._material);
+
+        this._tween = new Tween(this._mesh.scale)
+            .to({x: 0.5, y: 0.5, z:0.5}, 800)
+            .yoyo(true)
+            .repeat(Infinity)
+            .start()
+    }
+
+    public update(deltaTime: number) {
+        this._tween.update(performance.now());
     }
 
     public get mesh(){

@@ -4,18 +4,18 @@ import {PointLight} from "three";
 
 export class GameController {
     private _fixedTimeStep = 1 / 60;
-    private _clickableScene: GameLevel;
+    private _gameLevel: GameLevel;
 
     constructor() {
-        this._clickableScene = new GameLevel();
+        this._gameLevel = new GameLevel();
     }
 
     public async init(){
-        this._clickableScene.init();
+        this._gameLevel.init();
     }
 
     public fixedUpdate() {
-        this._clickableScene.update();
+        this._gameLevel.update();
         requestAnimationFrame(this.fixedUpdate.bind(this));
     }
 }

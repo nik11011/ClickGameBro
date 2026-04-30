@@ -4,12 +4,15 @@ import type {TextMesh} from "../../UI/Font3DComponent.ts";
 import {Tween} from "@tweenjs/tween.js";
 import {PointLight} from "three";
 import {Player} from "../../Player/Player.ts";
+import {Enemy} from "../../Enemy/Enemy.ts";
 
 
 export class GameLevel extends Level{
     private _backGroundPlatform: Cube | undefined;
     private _FONT_Platform : TextMesh;
     private _player: Player;
+    private _enemy: Enemy;
+
 
     constructor() {
         super();
@@ -17,6 +20,9 @@ export class GameLevel extends Level{
 
         this._player = new Player("#ff0000");
         this._player.mesh.scale.set(0.25,0.25,0.25);
+
+        this._enemy = new Enemy("#00ffcc")
+        this._enemy.mesh.scale.set(1,1,1);
     }
 
     public init() {
@@ -43,13 +49,18 @@ export class GameLevel extends Level{
         }
     }
     public initObjects(){
-        this._player.mesh.position.set(0,-3,0)
-        this._scene.add(this._player.mesh)
+        this._player.mesh.position.set(0,0,0);
+        this._scene.add(this._player.mesh);
         this._player.mesh.lookAt(this._camera.position);
+
+        this._enemy.mesh.position.set(0,0,0);
+        this._scene.add(this._enemy.mesh);
+        this._enemy.mesh.lookAt(this._camera.position);
     }
 
     public update(){
         this._player.update(this._clock.getDelta());
+        this._enemy.update(this._clock.getDelta());
 
         this._render();
     }
