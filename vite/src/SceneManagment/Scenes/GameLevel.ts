@@ -22,7 +22,6 @@ export class GameLevel extends Level{
         this._player.mesh.scale.set(0.25,0.25,0.25);
 
         this._enemy = new Enemy("#00ffcc")
-        this._enemy.mesh.scale.set(1,1,1);
     }
 
     public init() {
