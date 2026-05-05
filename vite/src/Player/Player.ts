@@ -15,13 +15,7 @@ export class Player {
     constructor(color) {
         this._geometry = new BoxGeometry(1,1,1);
         this._material = new MeshPhysicalMaterial({
-            color: color,
-            roughness: 1.0,
-            metalness: 0.0,
-            clearcoat: 0.0,
-            sheen: 0.0,
-            specularIntensity: 0.0,
-            envMapIntensity: 0.0});
+            wireframe: true});
 
         this._mesh = new Mesh(this._geometry, this._material);
 
@@ -30,6 +24,10 @@ export class Player {
         this._angle = 0;
         this._angularSpeed = 2.0;
         this._moveDirection = 0;
+
+
+        window.addEventListener('keydown', this._onKeyDown);
+        window.addEventListener('keyup', this._onKeyUp)
     }
 
     private _updatePositionFromAngle(){
@@ -69,5 +67,21 @@ export class Player {
 
     public get angle(): number {
         return this._angle;
+    }
+
+
+    private _onKeyDown = (e: KeyboardEvent) => {
+        if(e.key === "ArrowLeft") {
+            this.startLeft();
+        }
+        if(e.key === "ArrowRight"){
+            this.startRight();
+        }
+    }
+
+    private _onKeyUp = (e: KeyboardEvent) => {
+        if(e.key === 'ArrowLeft' || e.key === 'ArrowRight'){
+            this.stop();
+        }
     }
 }

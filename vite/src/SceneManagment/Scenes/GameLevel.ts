@@ -11,17 +11,12 @@ export class GameLevel extends Level{
     private _backGroundPlatform: Cube | undefined;
     private _FONT_Platform : TextMesh;
     private _player: Player;
-    private _enemy: Enemy;
+    private _enemys: Array<Enemy>;
 
 
     constructor() {
         super();
         this.camera.position.z = 5;
-
-        this._player = new Player("#ff0000");
-        this._player.mesh.scale.set(0.25,0.25,0.25);
-
-        this._enemy = new Enemy("#00ffcc")
     }
 
     public init() {
@@ -29,37 +24,33 @@ export class GameLevel extends Level{
         this.renderer.setClearColor('#000000')
         this.initObjects();
 
-        window.addEventListener('keydown', this._onKeyDown);
-        window.addEventListener('keyup', this._onKeyUp)
+
     }
 
-    private _onKeyDown = (e: KeyboardEvent) => {
-        if(e.key === "ArrowLeft") {
-            this._player.startLeft();
-        }
-        if(e.key === "ArrowRight"){
-            this._player.startRight();
-        }
-    }
-
-    private _onKeyUp = (e: KeyboardEvent) => {
-        if(e.key === 'ArrowLeft' || e.key === 'ArrowRight'){
-            this._player.stop();
-        }
-    }
     public initObjects(){
+        this._player = new Player("#ff0000");
         this._player.mesh.position.set(0,0,0);
         this._scene.add(this._player.mesh);
         this._player.mesh.lookAt(this._camera.position);
+        this._player.mesh.scale.set(0.25,0.25,0.25);
 
-        this._enemy.mesh.position.set(0,0,0);
-        this._scene.add(this._enemy.mesh);
-        this._enemy.mesh.lookAt(this._camera.position);
+
+        this._enemys = Array.from({length: 4}, () => new Enemy());
+
+        this._enemys[0].tweenScale(0.5)
+        this._enemys[1].tweenScale(0.5)
+        this._enemys[2].tweenScale(0.5)
+        this._enemys[3].tweenScale(0.5)
+        this._enemys[0].tweenRotation(1,0,0)
+        this._enemys[1].tweenRotation(0,1,0)
+        this._enemys[2].tweenRotation(0,-1,0)
+        this._enemys[3].tweenRotation(-1,0,0)
+        this._enemys.map(enemy=>enemy.init(this._scene))
     }
 
     public update(){
         this._player.update(this._clock.getDelta());
-        this._enemy.update(this._clock.getDelta());
+        this._enemys.map(enemy=>enemy.update(this._clock.getDelta()));
 
         this._render();
     }
