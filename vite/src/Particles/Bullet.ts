@@ -16,6 +16,4 @@ export class Bullet {
         });
         this._mesh = new Mesh(this._geometry, this._material);
     }
-
-    
 }

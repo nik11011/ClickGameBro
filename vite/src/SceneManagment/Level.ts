@@ -1,5 +1,6 @@
 import EventEmitter from "eventemitter3";
 import {Scene, PerspectiveCamera, WebGLRenderer, PointLight, Clock} from "three";
+import {EffectComposer, EffectPass, PixelationEffect, RenderPass} from "postprocessing";
 
 export class Level{
     public event: EventEmitter;
@@ -11,23 +12,25 @@ export class Level{
     protected _light: PointLight;
     private _canvas: HTMLCanvasElement;
 
+    private composer: EffectComposer;
+    private effectPass: EffectPass;
+
     protected _clock: Clock;
 
 
     constructor(){
-
         this._scene = new Scene();
 
         this._canvas = document.getElementById('gameCanvas') as HTMLCanvasElement;
 
         this.renderer = new WebGLRenderer({canvas: this._canvas});
         this.renderer.setSize(window.innerWidth, window.innerHeight);
-        this.renderer.setClearColor('#7a0000', 1);
+        this.renderer.setClearColor('#000000', 1);
 
         this._camera = new PerspectiveCamera(75, window.innerWidth / window.innerHeight);
 
         this._scene.add(this._camera);
-
+        this._EnablePixelization();
 
         this._light = new PointLight('#ffffff', 1000);
         this._light.position.set(0, 0, 0);
@@ -42,6 +45,15 @@ export class Level{
         });
 
         this._clock = new Clock();
+    }
+
+    private _EnablePixelization() {
+        this.composer = new EffectComposer(this.renderer);
+        this.composer.addPass(new RenderPass(this.scene, this.camera));
+
+        this.effectPass = new EffectPass(this.camera, new PixelationEffect(16));
+
+        this.composer.addPass(this.effectPass);
     }
 
     public get camera(){
