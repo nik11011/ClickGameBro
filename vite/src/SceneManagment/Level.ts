@@ -1,5 +1,5 @@
 import EventEmitter from "eventemitter3";
-import {Scene, PerspectiveCamera, WebGLRenderer, PointLight, Clock} from "three";
+import {Scene, PerspectiveCamera, WebGLRenderer, PointLight, Clock, Color} from "three";
 import {EffectComposer, EffectPass, PixelationEffect, RenderPass} from "postprocessing";
 
 export class Level{
@@ -30,6 +30,7 @@ export class Level{
         this._camera = new PerspectiveCamera(75, window.innerWidth / window.innerHeight);
 
         this._scene.add(this._camera);
+        this.scene.background = new Color("#000000");
         this._EnablePixelization();
 
         this._light = new PointLight('#ffffff', 1000);
@@ -49,6 +50,7 @@ export class Level{
 
     private _EnablePixelization() {
         this.composer = new EffectComposer(this.renderer);
+        this.renderer
         this.composer.addPass(new RenderPass(this.scene, this.camera));
 
         this.effectPass = new EffectPass(this.camera, new PixelationEffect(16));
