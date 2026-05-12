@@ -27,7 +27,7 @@ export class GameLevel extends Level{
 
     }
 
-    public initObjects(){ 
+    public initObjects(){
         this._player = new Player("#ff0000");
         this._player.mesh.position.set(0,0,0);
         this._scene.add(this._player.mesh);
