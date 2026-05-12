@@ -104,7 +104,8 @@ export class Player {
     private _onKeyUp = (e: KeyboardEvent) => {
         if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
             this.stop();
-        } else if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
+        }
+        else if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
             this.stopOnDiameter();
         }
     };
